@@ -46,59 +46,28 @@ def try_plant_carrot():
 	
 def square():
 	planting = True
-	harvest_pos = [(0,0), (0,6), (6,0), (6,6)]
-
-	has_dead = {
-		harvest_pos[0]: False,
-		harvest_pos[1]: False,
-		harvest_pos[2]: False,
-		harvest_pos[3]: False
-	}
+	has_dead = False
 	p_entities = [ Entities.Pumpkin, Entities.Dead_Pumpkin]
-	
 	while planting:
 		for x in range(size):
 			for y in range(size):
-			# plant pumpkin
 				if get_entity_type() not in p_entities:
 					crop()
-				if (x,y) in harvest_pos:
+				if get_pos_x() == 0 and get_pos_y() == 0:
 					do_a_flip()
-					if has_dead[(x,y)] == False:
+					if has_dead == False:
 						harvest()
-						has_dead[(x,y)] = False
-					
-				if x < 6 and y < 6:
-				# if (x,y) < 
+						has_dead = False
+				if get_pos_x() < 6 and get_pos_y() < 6:
 					set_soil()
 					if get_entity_type() == Entities.Dead_Pumpkin:
-						has_dead[harvest_pos[0]] = True
+						has_dead = True
 						harvest()
 					plant(Entities.Pumpkin)
-					
-				if x >= 6 and y < 6:
-					set_soil()
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						has_dead[harvest_pos[1]] = True
-						harvest()
-					plant(Entities.Pumpkin)
-					
-				if x < 6 and y >= 6:
-					set_soil()
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						has_dead[harvest_pos[2]] = True
-						harvest()
-					plant(Entities.Pumpkin)
-					
-				if x >= 6 and y >= 6:
-					set_soil()
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						has_dead[harvest_pos[3]] = True
-						harvest()
-					plant(Entities.Pumpkin)
-			 
-				
-				
+				else:
+					if not try_plat_sunflower():
+						if not try_plant_tree():
+							try_plant_carrot()
 				move(East)
 			move(North)
 		
