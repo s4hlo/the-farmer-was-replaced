@@ -1,15 +1,15 @@
 import u
 
 petals_pos = {
-		7: set(),
-		8: set(),
-		9: set(),
-		10: set(),
-		11: set(),
-		12: set(),
-		13: set(),
-		14: set(),
-		15: set(),
+		7: [],
+		8: [],
+		9: [],
+		10: [],
+		11: [],
+		12: [],
+		13: [],
+		14: [],
+		15: [],
 }
 clear()
 
@@ -19,10 +19,10 @@ alive = 0
 def plant_and_save(alive):
 	if get_ground_type() == Grounds.Grassland:
 		till()
-	plant(Entities.Sunflower)
-	u.smart_water()
-	petals_pos[measure()].add(u.get_pos())
-	alive = alive + 1
+	if plant(Entities.Sunflower):
+		u.smart_water()
+		petals_pos[measure()].append(u.get_pos())
+		alive = alive + 1
 	return alive
 
 
@@ -41,13 +41,13 @@ def tentar_colher(alive, pos):
 
 
 set_execution_speed(0)
-set_world_size(3)
+set_world_size(6)
 size = get_world_size()
 while True:
 	for i in range(size):
 		for j in range(size):
 				alive = plant_and_save(alive)
-				if alive >= 9:
+				if alive >= 10:
 					pos = u.get_pos()
 					alive = tentar_colher(alive, pos)
 				move(East)
