@@ -1,10 +1,10 @@
 import u
 
-def condition(orr, opps):
+def condition(orr, oppsite):
 	if orr == 'desc':
-		return measure() > measure(opps)
+		return measure() > measure(oppsite)
 	else:
-		return measure() < measure(opps)
+		return measure() < measure(oppsite)
 
 def sort(dir, size, order, do_plant=False):
 	opps = u.opposite(dir)
@@ -27,27 +27,31 @@ def sort(dir, size, order, do_plant=False):
 
 		if i < size - 1:
 			move(dir)
-
-clear()
-set_world_size(15)
-size = get_world_size()
-
+   
 def plant_sort_north():
 	sort(East, size, 'asc', True)
 def sort_north():
 	sort(North, size, 'asc')
  
-for i in range(size):
-	spawn_drone(plant_sort_north)
-	move(North)
-
-while num_drones() > 1:
-	pass
-for i in range(size):
-	spawn_drone(sort_north)
-	move(East)
+def plant_cactus():
+	for i in range(size):
+		spawn_drone(plant_sort_north)
+		move(North)
+	while num_drones() > 1:
+		pass
+	for i in range(size):
+		spawn_drone(sort_north)
+		move(East)
+	
+clear()
+set_world_size(15)
+size = get_world_size()
 
 while True:
-		do_a_flip()
+	plant_cactus()
+	while num_drones() > 1:
+		pass
+	harvest()
+ 
 
 
