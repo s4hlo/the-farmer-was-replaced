@@ -14,7 +14,7 @@ def sort(dir, opps):
 	
 		for k in range(steps_back):
 			move(dir)
-	change_hat(Hats.Brown_Hat)
+	change_hat(Hats.Straw_Hat)
 	 
 def plant_line():
 	for i in range(size):
@@ -56,14 +56,14 @@ def sort_columns():
 				if col < n - 1:
 						move(East)
 
-		change_hat(Hats.Brown_Hat)
+		change_hat(Hats.Straw_Hat)
 	
 	
 def plant_and_sort_row():
 		current_y = get_pos_y()
 		size = get_world_size()
 		for i in range(size):
-				change_hat(Hats.Brown_Hat)
+				change_hat(Hats.Straw_Hat)
 				if get_ground_type() == Grounds.Grassland:
 						till()
 				plant(Entities.Cactus)
@@ -87,14 +87,14 @@ def plant_and_sort_row():
 				if i < size - 1:
 						move(East)
 
-		change_hat(Hats.Brown_Hat)
+		change_hat(Hats.Straw_Hat)
 
 clear()
 set_world_size(9)
 size = get_world_size()
 
 # Garanta que começa no início da linha
-change_hat(Hats.Brown_Hat)
+change_hat(Hats.Straw_Hat)
 # Se não estiver no x=0, volta até o início
 while get_pos_x() > 0:
 		move(West)

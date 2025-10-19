@@ -97,7 +97,6 @@ change_hat(Hats.Brown_Hat)
 while get_pos_x() > 0:
 		move(West)
 
-# Planta e ordena simultaneamente da esquerda para a direita
 while True:
 	for o in range(size):
 		plant_and_sort_row(get_pos_y())
@@ -108,7 +107,6 @@ while True:
 		harvest()
 	go_to_southwest()
 
-# Extra (como no seu código)
 while True:
 		change_hat(Hats.Dinosaur_Hat)
 		do_a_flip()
