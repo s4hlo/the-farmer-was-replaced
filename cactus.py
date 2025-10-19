@@ -22,7 +22,7 @@ def plant_line():
 	
 
 clear()
-set_world_size(0)
+set_world_size(4)
 size = get_world_size()
 for i in range(size):
 	plant_line()
@@ -41,5 +41,6 @@ for i in range(size):
   
 harvest()
 while True:
+	change_hat(Hats.Dinosaur_Hat)
 	do_a_flip()
 
