@@ -34,7 +34,7 @@ def harvest_alive(alive, pos):
 def tentar_colher(alive, pos):
   # TODO improve this
 	sete = petals_pos[7]
-	if len(sete) > 1 and can_harvest():
+	if len(sete) > 2 and can_harvest():
 		harvest_alive(alive, pos)
   
   
@@ -50,7 +50,7 @@ def tentar_colher(alive, pos):
 
 
 set_execution_speed(0)
-set_world_size(4)
+set_world_size(5)
 size = get_world_size()
 while True:
 	for i in range(size):
