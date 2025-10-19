@@ -23,3 +23,7 @@ def go_to_pos(xy):
 	while y > y_target:
 		move(South)
 		y -= 1
+  
+def opposite(dir): 
+	opposite   = {North: South, South: North, East: West, West: East}
+	return opposite[dir]	
