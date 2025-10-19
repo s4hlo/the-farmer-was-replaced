@@ -1,17 +1,17 @@
-def sort():
+def sort(dir, opps):
 	size = get_world_size()
 	for i in range(1,size):
-		move(East)
+		move(dir)
 		j = i
-		steps_west = 0
-		while j > 0 and measure() < measure(West):
-			swap(West)
-			move(West)
-			steps_west = steps_west + 1
+		steps_back = 0
+		while j > 0 and measure() < measure(opps):
+			swap(opps)
+			move(opps)
+			steps_back = steps_back + 1
 			j = j -1
 	
-		for i in range(steps_west):
-			move(East)
+		for k in range(steps_back):
+			move(dir)
 	 
 def plant_line():
 	for i in range(size):
@@ -22,15 +22,24 @@ def plant_line():
 	
 
 clear()
-set_world_size(5)
+set_world_size(0)
 size = get_world_size()
 for i in range(size):
 	plant_line()
+	while get_pos_x() > 0:
+			move(West)
+	sort(East, West) 
 	move(North)
-	
-while get_pos_x() > 0:
-		move(West)
-print(get_pos_x())  # deve imprimir 0, confirmando que voltamos ao início
-sort() 
-do_a_flip()
+ 
+for i in range(size):
+	while get_pos_y() > 0:
+			move(South)
+	while get_pos_x() > i:
+			move(West)
+	sort(North, South) 
+	move(East)
+  
+harvest()
+while True:
+	do_a_flip()
 
