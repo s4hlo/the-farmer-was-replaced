@@ -1,4 +1,5 @@
 def sort(dir, opps):
+	change_hat(Hats.Cactus_Hat)
 	size = get_world_size()
 	for i in range(1,size):
 		move(dir)
@@ -12,6 +13,7 @@ def sort(dir, opps):
 	
 		for k in range(steps_back):
 			move(dir)
+	change_hat(Hats.Brown_Hat)
 	 
 def plant_line():
 	for i in range(size):
@@ -24,6 +26,7 @@ def plant_line():
 clear()
 set_world_size(4)
 size = get_world_size()
+change_hat(Hats.Brown_Hat)
 for i in range(size):
 	plant_line()
 	while get_pos_x() > 0:
@@ -38,9 +41,11 @@ for i in range(size):
 			move(West)
 	sort(North, South) 
 	move(East)
-  
+	
 harvest()
 while True:
 	change_hat(Hats.Dinosaur_Hat)
 	do_a_flip()
+
+
 
