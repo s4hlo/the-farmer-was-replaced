@@ -1,7 +1,21 @@
 import u
-def sort(dir, opps):
+
+def single_sort(dir, opps, size):
 	change_hat(Hats.Cactus_Hat)
-	size = get_world_size()
+	j = size
+	steps_back = 0
+	while j > 0 and measure() < measure(opps):
+		swap(opps)
+		move(opps)
+		steps_back = steps_back + 1
+		j = j -1
+
+	for _ in range(steps_back):
+		move(dir)
+	change_hat(Hats.Straw_Hat)
+
+def sort(dir, opps, size):
+	change_hat(Hats.Cactus_Hat)
 	for i in range(1,size):
 		move(dir)
 		j = i
@@ -12,7 +26,7 @@ def sort(dir, opps):
 			steps_back = steps_back + 1
 			j = j -1
 	
-		for k in range(steps_back):
+		for _ in range(steps_back):
 			move(dir)
 	change_hat(Hats.Straw_Hat)
 	 
@@ -22,24 +36,17 @@ def plant_line():
 			till()
 			plant(Entities.Cactus)
 		move(East)
-def go_to_southwest():
-	# Vai para y=0 (Sul) e x=0 (Oeste)
-	while get_pos_y() > 0:
-			move(South)
-	while get_pos_x() > 0:
-			move(West)
-	# do_a_flip()
+
 def sort_columns():
 		n = get_world_size()
-		go_to_southwest()
-
+		u.go_to_pos((0,0))
 		for col in range(n):
+    
+				# sort 
 				change_hat(Hats.Cactus_Hat)
-
 				for y in range(1, n):
 						move(North)
 						steps_down = 0
-
 						while steps_down < y and measure() < measure(South):
 								swap(South)
 								move(South)
@@ -47,8 +54,8 @@ def sort_columns():
 
 						for _ in range(steps_down):
 								move(North)
-
-				# Coluna finalizada: volta ao chão
+				change_hat(Hats.Straw_Hat)
+    
 				while get_pos_y() > 0:
 						move(South)
 
@@ -56,7 +63,6 @@ def sort_columns():
 				if col < n - 1:
 						move(East)
 
-		change_hat(Hats.Straw_Hat)
 	
 	
 def plant_and_sort_row():
@@ -69,7 +75,7 @@ def plant_and_sort_row():
 				plant(Entities.Cactus)
 
 
-				# order horizontal
+				# sort
 				change_hat(Hats.Cactus_Hat)
 				j = i
 				steps_back = 0
@@ -93,6 +99,11 @@ clear()
 set_world_size(9)
 size = get_world_size()
 
+# plant_line()
+# move(West)
+# single_sort(West, East, size)
+
+
 # Garanta que começa no início da linha
 change_hat(Hats.Straw_Hat)
 # Se não estiver no x=0, volta até o início
@@ -108,7 +119,7 @@ while num_drones() > 1:
 sort_columns()
 if can_harvest():
 	harvest()
-go_to_southwest()
+u.go_to_pos((0,0))
 
 
 u.go_to_pos((3,3))
