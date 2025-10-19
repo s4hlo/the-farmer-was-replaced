@@ -1,3 +1,4 @@
+import u
 def sort(dir, opps):
 	change_hat(Hats.Cactus_Hat)
 	size = get_world_size()
@@ -58,7 +59,8 @@ def sort_columns():
 		change_hat(Hats.Brown_Hat)
 	
 	
-def plant_and_sort_row(current_y):
+def plant_and_sort_row():
+		current_y = get_pos_y()
 		size = get_world_size()
 		for i in range(size):
 				change_hat(Hats.Brown_Hat)
@@ -88,7 +90,7 @@ def plant_and_sort_row(current_y):
 		change_hat(Hats.Brown_Hat)
 
 clear()
-set_world_size(6)
+set_world_size(9)
 size = get_world_size()
 
 # Garanta que começa no início da linha
@@ -98,19 +100,23 @@ while get_pos_x() > 0:
 		move(West)
 
 # Planta e ordena simultaneamente da esquerda para a direita
-while True:
-	for o in range(size):
-		plant_and_sort_row(get_pos_y())
-		move(East)
-		move(North)
-	sort_columns()
-	if can_harvest():
-		harvest()
-	go_to_southwest()
+for o in range(size):
+	spawn_drone(plant_and_sort_row)
+	move(North)
+while num_drones() > 1:
+  do_a_flip()
+sort_columns()
+if can_harvest():
+	harvest()
+go_to_southwest()
+
+
+u.go_to_pos((3,3))
 
 # Extra (como no seu código)
 while True:
 		change_hat(Hats.Dinosaur_Hat)
 		do_a_flip()
+
 
 
