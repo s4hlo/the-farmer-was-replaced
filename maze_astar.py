@@ -27,7 +27,10 @@ goal = None
 def generate_maze(s=size):
 	plant(Entities.Bush)
 	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
-	use_item(Items.Weird_Substance, substance)
+	if num_items(Items.Weird_Substance) >= substance:
+		use_item(Items.Weird_Substance, substance)
+	else:
+		print("not enough")
 
 
 def manhattan(a, b):

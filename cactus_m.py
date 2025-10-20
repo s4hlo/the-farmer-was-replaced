@@ -44,7 +44,7 @@ def plant_cactus():
 		move(East)
 	
 clear()
-set_world_size(15)
+set_world_size(max_drones() - 1)
 size = get_world_size()
 
 while True:

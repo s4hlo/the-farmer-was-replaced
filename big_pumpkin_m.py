@@ -76,7 +76,7 @@ def pumpkim_size():
 	pumpkim(get_world_size())
  
  
-set_world_size(6)	
+set_world_size(0)	
 size = get_world_size()
 
 # while True: 
