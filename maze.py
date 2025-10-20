@@ -22,7 +22,6 @@ def generate_maze(s=size):
 	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
 	use_item(Items.Weird_Substance, substance)
 
-
 def dfs(prev_direction=None):
 	pos = (get_pos_x(), get_pos_y())
 
