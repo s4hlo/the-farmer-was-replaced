@@ -17,19 +17,14 @@ def try_plant():
 		u.smart_water()
 		return plant(Entities.Carrot)
 
-def for_all(f):
-	def row():
-		for _ in range(get_world_size()-1):
-			f()
-			move(East)
-		f()
-	for _ in range(get_world_size()):
-		if not spawn_drone(row):
-			row()
-		move(North)
+def plant_tree():
+	if can_harvest():
+		harvest()
+		u.smart_water()
+		plant(Entities.Tree)
 
-set_world_size(14)
+set_world_size(0)
 while True: 
-		for_all(try_plant)
+		u.for_all(try_plant)
 		do_a_flip()
 		
