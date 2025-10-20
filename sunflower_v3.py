@@ -20,9 +20,8 @@ for i in range(size - 1):
 		if get_ground_type() != Grounds.Soil:
 			till()
 		harvest()
-		plant_sun()
-		# u.smart_water()
-		# plant(Entities.Sunflower)
+		u.smart_water()
+		plant(Entities.Sunflower)
 	move(East)
  
 if get_ground_type() != Grounds.Soil:
