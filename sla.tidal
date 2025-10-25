@@ -1,0 +1,133 @@
+
+d1 $ sound "hh*4"
+
+hush
+-- hh
+base_hh = sound "<hh*4 hh*4 hh*8>"
+base_kick = sound "<bd*4 bd bd> bd"
+
+drum = stack [ base_hh, base_kick ]
+d1 $ drum
+
+var_hh = sound "hh*4 hh*8"
+
+
+hihat_pro = slowcat
+  [ 
+    base_hh,
+    var_hh, 
+    drum
+  ]
+
+drum_song = slowcat 
+  [
+    hihat_pro
+  ]
+
+d1 $ drum_song
+
+d2 $ base_kick
+
+
+-- Modifica o tempo global
+
+-- padrão atual
+jumpIn' 1 8 $ sound "bd bd [sn cp] hh"   -- sua bateria B
+hush
+d1 $ every 2 (const grooveB) grooveA
+setcps 0.5  -- Define a velocidade (0.75 = 75% do tempo padrão)
+setcps (140/120/2)      -- só ajusta tempo, opcional
+d1 $ n (scale "dorian" "0 0") # sound "superpiano" # root "b"
+d3 $ n "0 0 [2 <4 7>]" # sound "superpiano" # gain 0.5
+d3 silence
+
+
+-- ===== BASES (as suas) =====
+base_hh    = sound "hh*8"
+var_hh     = sound "hh*4 hh*8"
+base_kick  = sound "<bd*4 bd> bd"     -- alterna entre ciclos: (bd*4)→bd→bd
+
+drum       = stack [ base_hh, base_kick ]
+
+hihat_pro  = slowcat
+  [ base_hh
+  , var_hh
+  , drum
+  ]
+
+-- ===== CAMADAS AUXILIARES (tudo já visto) =====
+sn_backbeat = sound "[~ sn ~ ~]"                         # gain 0.95
+sn_ghosts   = struct (euclid 3 16) $ sound "sn"          # gain 0.35
+claps       = struct (euclid 3 16) $ sound "cp"          # gain 0.5
+perc_eucl   = struct (euclid 5 16) $ sound "perc"        # gain 0.55 # pan (slow 4 $ sine)
+hh_open     = sound "~ ~ ~ oh"                           # gain 0.9
+hh_stereo   = stack [ sound "hh*8" # pan 0.2 # gain 0.6
+                    , sound "hh*8" # pan 0.8 # gain 0.6 ]
+hh_dust     = degradeBy 0.25 $ sound "hh*4"              # gain 0.6
+ride_push   = every 4 (fast 2) $ sound "hh*8"            # speed 0.9 # pan 0.75
+kick_push   = every 8 (const $ cat [ sound "bd*4"
+                                   , sound "bd*2 [~ bd]" ]) $ silence
+
+-- hihat_pro sempre timbrado como HH, para não “vazar” bd/sn quando usado em stack
+hh_prog = ( # s "hh" ) $ hihat_pro
+
+-- ===== PARTES (macroforma) =====
+-- Parte A: intro “respirada”
+parteA = slow 8 $ stack
+  [ base_kick
+  , base_hh
+  , sn_backbeat
+  , hh_open
+  , perc_eucl # gain 0.45
+  ]
+
+-- Parte B: groove cheio, com fantasmas e claps
+parteB = slow 8 $ stack
+  [ base_kick |+| sound "bd"         -- leve reforço de kick
+  , hh_prog                           -- sua sequência de HHs/DRUM, timbrada como hh
+  , sn_backbeat
+  , sn_ghosts
+  , claps
+  , hh_stereo
+  , ride_push
+  , perc_eucl
+  , kick_push                         -- empurrões de bumbo a cada 8 ciclos
+  ]
+
+-- Parte C: break curto (mais espaço, micro fills de HH)
+parteC = slow 4 $ stack
+  [ sound "bd ~ ~ ~"
+  , sound "~ sn ~ ~" # gain 0.8
+  , fast 2 $ sound "hh*8" # gain 0.75
+  , hh_dust
+  , perc_eucl # gain 0.4
+  ]
+
+-- Parte D: drop denso, open-hat periódico e claps mais presentes
+parteD = slow 8 $ stack
+  [ base_kick |+| sound "<bd*2 bd>"  -- alterna reforço
+  , sn_backbeat
+  , sn_ghosts
+  , sound "hh*16" # gain 0.9
+  , every 4 (const $ sound "[~ oh]") $ silence
+  , claps # gain 0.65
+  , perc_eucl
+  ]
+
+hith = sound "hh*8"
+
+-- ===== TIMELINE CÍCLICA =====
+drum_song = slowcat
+  [ parteA
+  , hith
+  , parteB
+  , hith
+  , parteC
+  , hith
+  , parteD
+  ]
+
+-- ===== TOCAR =====
+d1 $ drum_song
+
+

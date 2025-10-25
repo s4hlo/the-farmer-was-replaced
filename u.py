@@ -11,19 +11,53 @@ def go_to_pos(xy):
 	x_target, y_target = xy
 	x = get_pos_x()
 	y = get_pos_y()
-	while x < x_target:
-		move(East)
-		x += 1
-	while x > x_target:
-		move(West)
-		x -= 1
-	while y < y_target:
-		move(North)
-		y += 1
-	while y > y_target:
-		move(South)
-		y -= 1
-  
+	while x != x_target or y != y_target:
+		if x < x_target:
+			if move(East):
+				x += 1
+			elif move(North):
+				y += 1
+			elif move(South):
+				y -= 1
+			elif move(West):
+				x -= 1
+			else:
+				print("preso")
+		elif x > x_target:
+			if move(West):
+				x -= 1
+			elif move(South):
+				y -= 1
+			elif move(North):
+				y += 1
+			elif move(East):
+				x += 1
+			else:
+				print("preso carlaho")
+		elif y < y_target:
+			if move(North):
+				y += 1
+			elif move(East):
+				x += 1
+			elif move(West):
+				x -= 1
+			elif move(South):
+				y -= 1
+			else:
+				print("preso")
+		elif y > y_target:
+			if move(South):
+				y -= 1
+			elif move(West):
+				x -= 1
+			elif move(East):
+				x += 1
+			elif move(North):
+				y += 1
+			else:
+				print("preso")
+
+	
 def opposite(dir): 
 	opposite   = {North: South, South: North, East: West, West: East}
 	return opposite[dir]	
