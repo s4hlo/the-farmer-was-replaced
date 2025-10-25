@@ -9,53 +9,26 @@ def smart_water():
  
 def go_to_pos(xy):
 	x_target, y_target = xy
-	x = get_pos_x()
-	y = get_pos_y()
-	while x != x_target or y != y_target:
+	x, y = get_pos()
+
+	def try_moves(order):
+		while True:
+			for direction, _, _ in order:
+				if move(direction):
+					return get_pos()
+			change_hat(Hats.Straw_Hat)
+			change_hat(Hats.Dinosaur_Hat)
+
+	while (x, y) != (x_target, y_target):
 		if x < x_target:
-			if move(East):
-				x += 1
-			elif move(North):
-				y += 1
-			elif move(South):
-				y -= 1
-			elif move(West):
-				x -= 1
-			else:
-				print("preso")
+			x, y = try_moves([(East, 1, 0), (North, 0, 1), (South, 0, -1), (West, -1, 0)])
 		elif x > x_target:
-			if move(West):
-				x -= 1
-			elif move(South):
-				y -= 1
-			elif move(North):
-				y += 1
-			elif move(East):
-				x += 1
-			else:
-				print("preso carlaho")
+			x, y = try_moves([(West, -1, 0), (South, 0, -1), (North, 0, 1), (East, 1, 0)])
 		elif y < y_target:
-			if move(North):
-				y += 1
-			elif move(East):
-				x += 1
-			elif move(West):
-				x -= 1
-			elif move(South):
-				y -= 1
-			else:
-				print("preso")
+			x, y = try_moves([(North, 0, 1), (East, 1, 0), (West, -1, 0), (South, 0, -1)])
 		elif y > y_target:
-			if move(South):
-				y -= 1
-			elif move(West):
-				x -= 1
-			elif move(East):
-				x += 1
-			elif move(North):
-				y += 1
-			else:
-				print("preso")
+			x, y = try_moves([(South, 0, -1), (West, -1, 0), (East, 1, 0), (North, 0, 1)])
+	print("chegeui") 
 
 	
 def opposite(dir): 

@@ -23,7 +23,7 @@ def plant_tree():
 		u.smart_water()
 		plant(Entities.Tree)
 
-set_world_size(7)
+set_world_size(9)
 while True: 
 		u.for_all(try_plant)
 		do_a_flip()

@@ -18,8 +18,11 @@ goal = None
 
 
 def generate_maze(s=size):
-	plant(Entities.Bush)
+	if get_entity_type() != Entities.Hedge:
+		plant(Entities.Bush)
 	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
+	if (substance > num_items(Items.Weird_Substance)):
+		print("ta pobre")
 	use_item(Items.Weird_Substance, substance)
 
 def dfs(prev_direction=None):
@@ -31,7 +34,7 @@ def dfs(prev_direction=None):
 	visited.add(pos)
 
 	if pos == goal:
-		harvest()
+		generate_maze()
 		return True
 
 	for direction in d:
@@ -45,10 +48,11 @@ def dfs(prev_direction=None):
 
 	return False
 
-
+set_world_size(32)
 while True:
 	generate_maze()
 	goal = measure()
 	visited = set()
 	dfs()
+
 

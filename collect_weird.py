@@ -1,3 +1,4 @@
+import
 clear()
 size = get_world_size()
 
@@ -24,5 +25,10 @@ def collect_multi():
 				row()
 			move(North) 
   
-collect_multi()
+# collect_multi()
+
+
+
+u.all_rows(harvest)
+
 	

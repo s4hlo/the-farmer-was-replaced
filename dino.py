@@ -1,25 +1,71 @@
 import u
-clear()
-change_hat(Hats.Dinosaur_Hat)
 
-size = get_world_size()
 def auto_dino(cut_on=1000):
 	count_apples = 0
 	while(True):
 		x, y = measure()
-		u.go_to_pos((x,y))
+		go_to_pos((x,y))
 		count_apples += 1
 		if count_apples > cut_on:
 			change_hat(Hats.Straw_Hat)
 			change_hat(Hats.Dinosaur_Hat)
+			count_apples = 0
 			
-auto_dino()			
-# swap = True
-# for j in range(size):
-# 	for i in range(size):
-# 		if swap:
-# 			move(East)
-# 		else:
-# 			move(West)
-# 	move(North)
-# 	swap = not swap
+def go_to_pos(xy):
+		x_target, y_target = xy
+		x, y = u.get_pos()
+		fail = False  # inicializa
+
+		def try_moves(order):
+				for direction, _, _ in order:
+						if move(direction):
+								return u.get_pos(), False
+				change_hat(Hats.Straw_Hat)
+				change_hat(Hats.Dinosaur_Hat)
+				return u.get_pos(), True
+
+		while (x, y) != (x_target, y_target):
+				if fail:
+						break
+				if x < x_target:
+						(x, y), fail = try_moves([(East, 1, 0), (North, 0, 1), (South, 0, -1), (West, -1, 0)])
+				elif x > x_target:
+						(x, y), fail = try_moves([(West, -1, 0), (South, 0, -1), (North, 0, 1), (East, 1, 0)])
+				elif y < y_target:
+						(x, y), fail = try_moves([(North, 0, 1), (East, 1, 0), (West, -1, 0), (South, 0, -1)])
+				elif y > y_target:
+						(x, y), fail = try_moves([(South, 0, -1), (West, -1, 0), (East, 1, 0), (North, 0, 1)])
+# auto_dino()			
+
+def move_b(dir):
+	if not move(dir):
+		change_hat(Hats.Straw_Hat)
+		change_dino(Hats.Dinosaur_Hat)
+		move(dir)
+  
+def circular_path():
+	swap = True
+	while True:
+		move_b(East)
+		for j in range(size):
+			for i in range(size - 2):
+				if swap:
+					move_b(East)
+				else:
+					move_b(West)
+			if j < size - 1:
+				move_b(North)
+			swap = not swap
+		move_b(West)
+		for i in range(size - 1):
+			move_b(South)
+   
+clear()
+set_world_size(10)
+change_hat(Hats.Dinosaur_Hat)
+size = get_world_size() 
+size_r = size - 1
+auto_dino(10)
+# circular_path()
+
+
