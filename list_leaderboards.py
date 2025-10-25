@@ -1,1 +1,1 @@
-leaderboard_run(Leaderboards.Hay_Single, "Hay_l", 1000)
+leaderboard_run(Leaderboards.Maze_Single, "maze_astar", 1000)
