@@ -65,7 +65,7 @@ set_world_size(10)
 change_hat(Hats.Dinosaur_Hat)
 size = get_world_size() 
 size_r = size - 1
-auto_dino(10)
+auto_dino(100)
 # circular_path()
 
 
