@@ -25,7 +25,8 @@ goal = None
 
 
 def generate_maze(s=size):
-	plant(Entities.Bush)
+	if get_entity_type() != Entities.Hedge:
+		plant(Entities.Bush)
 	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
 	if num_items(Items.Weird_Substance) >= substance:
 		use_item(Items.Weird_Substance, substance)
@@ -71,7 +72,6 @@ def astar(g, prev_direction):
 	visited_best_g[pos] = g
 
 	if pos == goal:
-		harvest()
 		return True
 
 	# Gera vizinhos válidos
@@ -95,10 +95,15 @@ def astar(g, prev_direction):
 
 	return False
 
-
+set_world_size(3)
 while True:
 	generate_maze()
 	goal = measure()
 	visited_best_g = {}
-	astar(0, None)
+	result = astar(0, None)
+	while result:
+		generate_maze()
+		goal = measure()
+		visited_best_g = {}
+		result = astar(0, None)
 	

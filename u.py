@@ -45,3 +45,12 @@ def for_all(f):
 		if not spawn_drone(row):
 			row()
 		move(North)
+	
+def all_rows(f):
+	def row():
+		while True:
+			f()
+			move(East)
+	for _ in range(get_world_size()):
+		spawn_drone(row)
+		move(North)

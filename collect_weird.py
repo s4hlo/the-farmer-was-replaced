@@ -1,16 +1,11 @@
-import
+import u
 clear()
 size = get_world_size()
 
 def collect_base():
-	while True:
-		for i in range(size):
-			for j in range(size):
-				use_item(Items.Fertilizer)
-				harvest()
-				move(East)
-			move(North)
-  
+	use_item(Items.Fertilizer)
+	harvest()
+ 
 def collect_multi():
 	while True: 
 		def row():
@@ -28,7 +23,7 @@ def collect_multi():
 # collect_multi()
 
 
-
-u.all_rows(harvest)
+set_world_size(31)
+u.all_rows(collect_base)
 
 	

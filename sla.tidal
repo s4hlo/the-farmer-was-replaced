@@ -3,7 +3,7 @@ d1 $ sound "hh*4"
 
 hush
 -- hh
-base_hh = sound "<hh*4 hh*4 hh*8>"
+base_hh = sound "hh*2 <hh*2 hh*2 hh*8]>"
 base_kick = sound "<bd*4 bd bd> bd"
 
 drum = stack [ base_hh, base_kick ]

@@ -21,9 +21,11 @@ def generate_maze(s=size):
 	if get_entity_type() != Entities.Hedge:
 		plant(Entities.Bush)
 	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
-	if (substance > num_items(Items.Weird_Substance)):
-		print("ta pobre")
-	use_item(Items.Weird_Substance, substance)
+	if num_items(Items.Weird_Substance) >= substance:
+		use_item(Items.Weird_Substance, substance)
+	else:
+		print("not enough")
+
 
 def dfs(prev_direction=None):
 	pos = (get_pos_x(), get_pos_y())
@@ -48,7 +50,7 @@ def dfs(prev_direction=None):
 
 	return False
 
-set_world_size(32)
+set_world_size(3)
 while True:
 	generate_maze()
 	goal = measure()
