@@ -95,7 +95,8 @@ def astar(g, prev_direction):
 
 	return False
 
-set_world_size(3)
+set_world_size(10)
+set_execution_speed(2)
 while True:
 	generate_maze()
 	goal = measure()

@@ -50,7 +50,7 @@ def dfs(prev_direction=None):
 
 	return False
 
-set_world_size(3)
+set_world_size(4)
 while True:
 	generate_maze()
 	goal = measure()

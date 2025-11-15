@@ -843,6 +843,10 @@ def set_world_size(size: float) -> None:
     ...
 
 
+
+def set() -> none:
+    " none "
+
 # -------------------------------------------------------------------------------
 def num_items(item: Item) -> float:
     """
@@ -961,7 +965,7 @@ def num_unlocked(thing: Unlock | Entity | Ground | Item) -> int:
 
 
 # -------------------------------------------------------------------------------
-def measure(direction: Optional[Direction] = None) -> float | Tuple[int, int] | None:
+def measure(direction: Optional[Direction] = None) -> int | float | Tuple[int, int] | None:
     """
     Can measure some values on some entities. The effect of this depends on the entity.
 
