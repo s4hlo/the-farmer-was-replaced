@@ -74,29 +74,22 @@ def square():
 def pumpkim_size():
 	change_hat(Hats.Gold_Hat)
 	pumpkim(get_world_size())
- 
- 
-set_world_size(0)	
-size = get_world_size()
 
-# while True: 
-# 	for i in range(size):
-# 		print(measure())
-# 		spawn_drone(pumpkim_size)      
-# 		move(North)
-		
-def for_all(f):
-	def row():
-		for _ in range(get_world_size()-1):
-			f()
-			move(East)
-		f()
-	for _ in range(get_world_size()):
-		if not spawn_drone(row):
-			row()
-		move(North) 
+def run_pumpkin_farm(size):
+	set_world_size(size)
 	
-def plant_until_ok():
+	def for_all(f):
+		def row():
+			for _ in range(get_world_size()-1):
+				f()
+				move(East)
+			f()
+		for _ in range(get_world_size()):
+			if not spawn_drone(row):
+				row()
+			move(North) 
+	
+	def plant_until_ok():
 		if get_ground_type() == Grounds.Grassland:
 			till()
 		plant(Entities.Pumpkin)
@@ -105,8 +98,10 @@ def plant_until_ok():
 			if get_entity_type() == Entities.Dead_Pumpkin:
 				plant(Entities.Pumpkin)
 	
-while True:	
-	for_all(plant_until_ok)
-	while num_drones() > 1:
-		pass
-	harvest()
+	while True:	
+		for_all(plant_until_ok)
+		while num_drones() > 1:
+			pass
+		harvest()
+
+run_pumpkin_farm(32)

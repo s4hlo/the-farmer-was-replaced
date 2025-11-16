@@ -1,11 +1,12 @@
 def get_pos():
 	return (get_pos_x(), get_pos_y())
 
-def smart_water():
-	while get_water() < 0.75:
-		use_item(Items.Water)
-		if num_items(Items.Water) < 1:
-			break
+def smart_water(x = 0.75):
+	if num_unlocked(Unlocks.Watering) > 0:
+		while get_water() < x:
+			use_item(Items.Water)
+			if num_items(Items.Water) < 1:
+				break
  
 def go_to_pos(xy):
 	x_target, y_target = xy
