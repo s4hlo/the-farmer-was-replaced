@@ -45,12 +45,12 @@ def move_b(dir):
 		change_hat(Hats.Dinosaur_Hat)
 		move(dir)
 	
-def circular_path():
+def circular_path(stop_on=2000000):
 	clear()
 	change_hat(Hats.Dinosaur_Hat)
 	size = get_world_size() 
 	swap = True
-	while num_items(Items.Cactus) > 100:
+	while num_items(Items.Bone) < stop_on:
 		move_b(East)
 		for j in range(size):
 			for i in range(size - 2):

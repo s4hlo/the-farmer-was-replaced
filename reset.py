@@ -15,6 +15,6 @@ sim_items = {
 			 }
 #um valor de semente negativo significa uma semente aleatória
 seed = -1
-speedup = 10000
+speedup = 1000000
 simulate("rscript", unlocks, items, globals, seed, speedup)
 
