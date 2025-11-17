@@ -50,7 +50,7 @@ def circular_path(stop_on=2000000):
 	change_hat(Hats.Dinosaur_Hat)
 	size = get_world_size() 
 	swap = True
-	while num_items(Items.Bone) < stop_on:
+	while num_items(Items.Bone) < stop_on and num_items(Items.Cactus) > 100:
 		move_b(East)
 		for j in range(size):
 			for i in range(size - 2):

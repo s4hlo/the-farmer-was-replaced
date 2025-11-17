@@ -14,7 +14,9 @@ sim_items = {
 			 Items.Hay : 50,
 			 }
 #um valor de semente negativo significa uma semente aleatória
-seed = -1
+# seed = -1
 speedup = 10000000
-simulate("rscript", unlocks, items, globals, seed, speedup)
+# simulate("rscript", unlocks, items, globals, seed, speedup)
+
+leaderboard_run(Leaderboards.Fastest_Reset, "rscript", speedup)
 

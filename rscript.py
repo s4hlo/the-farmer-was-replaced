@@ -22,25 +22,20 @@ def plth(a):
 def hay():
 	base(Entities.Hedge, Grounds.Grassland, True)
 
-def unlk(e, i = 1):
+def unlk(e, i = 5):
 	if (num_unlocked(e) < i):
 		unlock(e)
 	
-# def cost(unlock, item, limit, min):
-# 	if get_cost(unlock, limit - 1)[item] < min:
-# 	return min
-# 	if num_unlocked(unlock) == limit:
-# 		return get_cost(unlock, limit - 1)[item]
-# 	cost = get_cost(unlock)
-# 	if cost[item] < min:
-# 		return min
-# 	return cost[item]
+def cost(unlock, item, min, max):
+	if get_cost(unlock)[item] < min:
+		return min
+	return max
 	
 
 
 # set_world_size(6)
 while(True):
-	unlk(Unlocks.Grass, 3)
+	unlk(Unlocks.Grass)
 	unlk(Unlocks.Speed)
 	unlk(Unlocks.Hats)
 	unlk(Unlocks.Expand, 6)
@@ -50,9 +45,8 @@ while(True):
 	unlk(Unlocks.Pumpkins)
 	unlk(Unlocks.Cactus)
 	unlk(Unlocks.Watering)
-	unlk(Unlocks.Sunflowers)
 	unlk(Unlocks.Dinosaurs)
-	unlk(Unlocks.Fertilizer, 4)
+	unlk(Unlocks.Fertilizer)
 	unlk(Unlocks.Mazes)
 	unlk(Unlocks.Leaderboard)
  
@@ -60,25 +54,24 @@ while(True):
  
 	# if num_unlocked(Unlocks.Sunflowers) > 0 and num_items(Items.Power) < 100 and num_items(Items.Carrot) == 500:
 	# 	sunflower_opt.power(200)
- 
 
-	if num_items(Items.Hay) < 100:
+	if num_items(Items.Hay) < 5000:
 		hay()
-	elif num_items(Items.Wood) < 1500:
+	elif num_items(Items.Wood) < 50000:
 		change_hat(Hats.Brown_Hat)
 		plth(Entities.Bush)
 		change_hat(Hats.Straw_Hat)
-	elif num_items(Items.Carrot) < 500:
+	elif num_items(Items.Carrot) < 1000:
 		plth(Entities.Carrot)
-	elif num_items(Items.Pumpkin) < 8000:
+	elif num_items(Items.Pumpkin) < cost(Unlocks.Expand, Items.Pumpkin,8000, 64000):
 		if num_unlocked(Unlocks.Pumpkins) > 0:
 			pumpking_s.get_pumpkins(0.75)
 	elif num_items(Items.Weird_Substance) < 1000:
 		collect_weird.collect_base()
+	elif num_items(Items.Pumpkin) > 4 * 4 * 2 and num_items(Items.Cactus) < 432000:
+		cactus.cactus_plant()
 	elif num_unlocked(Unlocks.Mazes) > 0 and num_items(Items.Gold) < 1000000:
 		maze_astar.run()
-	elif num_items(Items.Pumpkin) > 4 * 4 * 2 and num_items(Items.Cactus) < 100:
-		cactus.cactus_plant()
 	elif num_unlocked(Unlocks.Dinosaurs) > 0 and num_items(Items.Bone) < 2000000:
 		dino.circular_path()
 	
