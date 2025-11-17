@@ -1,6 +1,8 @@
 import u
 
 def auto_dino(cut_on=1000):
+	clear()
+	change_hat(Hats.Dinosaur_Hat)
 	count_apples = 0
 	while(True):
 		x, y = measure()
@@ -40,12 +42,15 @@ def go_to_pos(xy):
 def move_b(dir):
 	if not move(dir):
 		change_hat(Hats.Straw_Hat)
-		change_dino(Hats.Dinosaur_Hat)
+		change_hat(Hats.Dinosaur_Hat)
 		move(dir)
-  
+	
 def circular_path():
+	clear()
+	change_hat(Hats.Dinosaur_Hat)
+	size = get_world_size() 
 	swap = True
-	while True:
+	while num_items(Items.Cactus) > 100:
 		move_b(East)
 		for j in range(size):
 			for i in range(size - 2):
@@ -59,13 +64,11 @@ def circular_path():
 		move_b(West)
 		for i in range(size - 1):
 			move_b(South)
-   
-clear()
-set_world_size(10)
-change_hat(Hats.Dinosaur_Hat)
-size = get_world_size() 
-size_r = size - 1
-auto_dino(100)
+	clear()
+	 
+# clear()
+# set_world_size(6)
+# auto_dino(100)
 # circular_path()
 
 

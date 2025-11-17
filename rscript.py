@@ -1,3 +1,4 @@
+import dino
 import pumpking_s
 import cactus
 import u
@@ -37,6 +38,8 @@ while(True):
 	unlk(Unlocks.Watering)
 	unlk(Unlocks.Dinosaurs)
 	unlk(Unlocks.Fertilizer, 4)
+ 
+ 
 
 	if num_items(Items.Hay) < 100:
 		hay()
@@ -49,8 +52,11 @@ while(True):
 	elif num_items(Items.Pumpkin) < 6000:
 		if num_unlocked(Unlocks.Pumpkins) > 0:
 			pumpking_s.get_pumpkins(0.75)
-	elif num_items(Items.Weird_Substance) < 500:
-		collect_weird.collect_base()
+	elif num_unlocked(Unlocks.Dinosaurs) > 0 and num_items(Items.Cactus) > 100:
+		dino.circular_path()
+	# elif num_items(Items.Weird_Substance) < 500:
+	# 	collect_weird.collect_base()
 	elif num_items(Items.Pumpkin) > 4 * 4 * 2:
 		cactus.cactus_plant()
+  
 	

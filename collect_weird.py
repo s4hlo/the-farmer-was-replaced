@@ -3,7 +3,6 @@ clear()
 size = get_world_size()
 
 def collect_base():
-  while True:
 	u.till_to(Grounds.Grassland)
 	u.smart_fertilizer()
 	if can_harvest():
