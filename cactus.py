@@ -1,5 +1,5 @@
+import u
 def sort(dir, opps):
-	change_hat(Hats.Cactus_Hat)
 	size = get_world_size()
 	for i in range(1,size):
 		move(dir)
@@ -13,7 +13,6 @@ def sort(dir, opps):
 	
 		for k in range(steps_back):
 			move(dir)
-	change_hat(Hats.Brown_Hat)
 	 
 def plant_line():
 	for i in range(size):
@@ -21,19 +20,12 @@ def plant_line():
 			till()
 			plant(Entities.Cactus)
 		move(East)
-def go_to_southwest():
-	# Vai para y=0 (Sul) e x=0 (Oeste)
-	while get_pos_y() > 0:
-			move(South)
-	while get_pos_x() > 0:
-			move(West)
-	# do_a_flip()
+  
 def sort_columns():
 		n = get_world_size()
-		go_to_southwest()
+		u.go_to_pos((0,0))
 
 		for col in range(n):
-				change_hat(Hats.Cactus_Hat)
 
 				for y in range(1, n):
 						move(North)
@@ -55,20 +47,17 @@ def sort_columns():
 				if col < n - 1:
 						move(East)
 
-		change_hat(Hats.Brown_Hat)
 	
 	
 def plant_and_sort_row(current_y):
 		size = get_world_size()
 		for i in range(size):
-				change_hat(Hats.Brown_Hat)
 				if get_ground_type() == Grounds.Grassland:
 						till()
 				plant(Entities.Cactus)
 
 
 				# order horizontal
-				change_hat(Hats.Cactus_Hat)
 				j = i
 				steps_back = 0
 				while j > 0 and measure() < measure(West):
@@ -85,30 +74,26 @@ def plant_and_sort_row(current_y):
 				if i < size - 1:
 						move(East)
 
-		change_hat(Hats.Brown_Hat)
-
-clear()
-set_world_size(9)
-size = get_world_size()
-
-# Garanta que começa no início da linha
-change_hat(Hats.Brown_Hat)
-# Se não estiver no x=0, volta até o início
-while get_pos_x() > 0:
-		move(West)
-
-while True:
-	for o in range(size):
-		plant_and_sort_row(get_pos_y())
-		move(East)
-		move(North)
-	sort_columns()
-	if can_harvest():
-		harvest()
-	go_to_southwest()
-
-while True:
-		change_hat(Hats.Dinosaur_Hat)
-		do_a_flip()
 
 
+def cactus_plant():
+	harvest()
+	u.go_to_pos((0,0))
+	
+	size = get_world_size()
+	while get_pos_x() > 0:
+			move(West)
+
+	while True:
+		for o in range(size):
+			plant_and_sort_row(get_pos_y())
+			move(East)
+			move(North)
+		sort_columns()
+		if can_harvest():
+			harvest()
+			u.go_to_pos((0,0))
+			break
+		u.go_to_pos((0,0))
+ 
+	

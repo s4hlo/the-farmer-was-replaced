@@ -85,8 +85,9 @@ def maintain_pumpkin_patch(req_water_level=0.75, req_fertilize=False):
 				move_self(x, y)
 
 def get_pumpkins(req_water_level=0.75, req_fertilize=False):
-		maintain_pumpkin_patch(req_water_level, req_fertilize)
-		harvest()  # harvest megapumpkin
+	harvest()
+	maintain_pumpkin_patch(req_water_level, req_fertilize)
+	harvest()  # harvest megapumpkin
 
 # clear()
 
