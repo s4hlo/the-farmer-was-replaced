@@ -1,5 +1,3 @@
-clear()
-
 d = [North, East, South, West]
 opposite = {
 	North: South,
@@ -15,19 +13,12 @@ dir_delta = {
 	West: (-1, 0)
 }
 
-clear()
-set_execution_speed(0)
-set_world_size(0)
-size = get_world_size()
-
-visited_best_g = {}
-goal = None
 
 
-def generate_maze(s=size):
-	if get_entity_type() != Entities.Hedge:
+def generate_maze(s):
+	if get_entity_type() != Entities.Hedge and num_unlocked(Unlocks.Plant) > 0:
 		plant(Entities.Bush)
-	substance = size * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
+	substance = s * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
 	if num_items(Items.Weird_Substance) >= substance:
 		use_item(Items.Weird_Substance, substance)
 	else:
@@ -60,7 +51,7 @@ def sort_neighbors(neighbors):
 	return neighbors
 
 
-def astar(g, prev_direction):
+def astar(g, prev_direction, goal, visited_best_g):
 	pos = current_pos()
 
 	if pos in visited_best_g:
@@ -79,7 +70,7 @@ def astar(g, prev_direction):
 	for direction in d:
 		if prev_direction !=None and direction == opposite[prev_direction]:
 			continue
-		if can_move(direction):
+		if num_unlocked(Unlocks.Mazes) > 0 and can_move(direction):
 			npos = neighbor_pos(pos, direction)
 			f = (g + 1) + manhattan(npos, goal)
 			neighbors.append((f, direction, npos))
@@ -89,22 +80,36 @@ def astar(g, prev_direction):
 	for k in range(len(neighbors)):
 		direction = neighbors[k][1]
 		move(direction)
-		if astar(g + 1, direction):
+		if astar(g + 1, direction, goal, visited_best_g):
 			return True
 		move(opposite[direction])
 
 	return False
 
-set_world_size(10)
-set_execution_speed(2)
-while True:
-	generate_maze()
-	goal = measure()
-	visited_best_g = {}
-	result = astar(0, None)
-	while result:
-		generate_maze()
+def run_reuse():
+	set_world_size(6)
+	size = get_world_size()
+	while True:
+		generate_maze(size)
 		goal = measure()
 		visited_best_g = {}
-		result = astar(0, None)
+		result = astar(0, None, goal, visited_best_g)
+		while result:
+			generate_maze(size)
+			goal = measure()
+			visited_best_g = {}
+			result = astar(0, None, goal, visited_best_g)
+   
+   
+def run():
+	generate_maze(get_world_size())
+	goal = measure()
+	visited_best_g = {}
+	result = astar(0, None, goal, visited_best_g)
+	if result:
+		harvest()
+		clear()
+  
+   
 	
+# run()

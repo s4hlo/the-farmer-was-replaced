@@ -3,6 +3,7 @@ import pumpking_s
 import cactus
 import u
 import collect_weird
+import maze_astar
 def base(a, g, h):
 	u.smart_fertilizer()
 	if can_harvest() or get_entity_type() == Entities.Dead_Pumpkin or get_entity_type() == None:
@@ -27,6 +28,7 @@ def unlk(e, i = 1):
 
 set_world_size(6)
 while(True):
+	unlk(Unlocks.Grass, 3)
 	unlk(Unlocks.Speed)
 	unlk(Unlocks.Hats)
 	unlk(Unlocks.Expand, 4)
@@ -38,6 +40,7 @@ while(True):
 	unlk(Unlocks.Watering)
 	unlk(Unlocks.Dinosaurs)
 	unlk(Unlocks.Fertilizer, 4)
+	unlk(Unlocks.Mazes)
  
  
 
@@ -52,11 +55,13 @@ while(True):
 	elif num_items(Items.Pumpkin) < 6000:
 		if num_unlocked(Unlocks.Pumpkins) > 0:
 			pumpking_s.get_pumpkins(0.75)
+	elif num_items(Items.Weird_Substance) < 1000:
+		collect_weird.collect_base()
+	elif num_unlocked(Unlocks.Mazes) > 0:
+		maze_astar.run()
 	elif num_unlocked(Unlocks.Dinosaurs) > 0 and num_items(Items.Cactus) > 100:
 		dino.circular_path()
-	# elif num_items(Items.Weird_Substance) < 500:
-	# 	collect_weird.collect_base()
 	elif num_items(Items.Pumpkin) > 4 * 4 * 2:
 		cactus.cactus_plant()
-  
+	
 	
