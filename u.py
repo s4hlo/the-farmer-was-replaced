@@ -7,6 +7,14 @@ def smart_water(x = 0.75):
 			use_item(Items.Water)
 			if num_items(Items.Water) < 1:
 				break
+
+def smart_fertilizer():
+		if num_unlocked(Unlocks.Fertilizer) > 0 and num_items(Items.Fertilizer) > 100:
+			use_item(Items.Fertilizer)
+		
+def till_to(req_ground): 
+		if get_ground_type() != req_ground:
+				till()
  
 def go_to_pos(xy):
 	x_target, y_target = xy
