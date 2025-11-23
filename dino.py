@@ -1,6 +1,6 @@
 import u
 
-def auto_dino(cut_on=1000):
+def auto_dino(cut_on=1000, keep=True):
 	clear()
 	change_hat(Hats.Dinosaur_Hat)
 	count_apples = 0
@@ -9,9 +9,12 @@ def auto_dino(cut_on=1000):
 		go_to_pos((x,y))
 		count_apples += 1
 		if count_apples > cut_on:
-			change_hat(Hats.Straw_Hat)
-			change_hat(Hats.Dinosaur_Hat)
-			count_apples = 0
+			if keep:
+				change_hat(Hats.Straw_Hat)
+				change_hat(Hats.Dinosaur_Hat)
+				count_apples = 0
+			else:
+				break
 			
 def go_to_pos(xy):
 		x_target, y_target = xy
@@ -67,8 +70,10 @@ def circular_path(stop_on=2000000):
 	clear()
 	 
 # clear()
-# set_world_size(6)
-# auto_dino(100)
-# circular_path()
+#set_world_size(14)
+#auto_dino(10, False)
+#while True:
+#	do_a_flip()
+#circular_path(10000000000)
 
 

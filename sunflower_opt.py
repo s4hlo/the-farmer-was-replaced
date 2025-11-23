@@ -45,4 +45,4 @@ def power(limit=1000000000):
 				plant_sun()
 	clear()
 			
-# power()
+power()

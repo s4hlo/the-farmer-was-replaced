@@ -37,7 +37,6 @@ def go_to_pos(xy):
 			x, y = try_moves([(North, 0, 1), (East, 1, 0), (West, -1, 0), (South, 0, -1)])
 		elif y > y_target:
 			x, y = try_moves([(South, 0, -1), (West, -1, 0), (East, 1, 0), (North, 0, 1)])
-	print("chegeui") 
 
 	
 def opposite(dir): 
@@ -63,3 +62,17 @@ def all_rows(f):
 	for _ in range(get_world_size()):
 		spawn_drone(row)
 		move(North)
+		
+def is_even(num):
+	return num % 2 == 0
+
+def is_odd(num):
+	return not is_even(num)
+
+
+def clamp(num, left, right):
+	# Clamp a number between a given min and max.
+	return min(max(num, left), right)
+
+def ring_clamp(num, width):
+	return num % width

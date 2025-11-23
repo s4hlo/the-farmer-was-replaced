@@ -34,8 +34,8 @@ def cost(unlock, item, min, max):
 
 
 # set_world_size(6)
-while(True):
-	unlk(Unlocks.Grass)
+while(num_items(Items.Bone) < 2000000):
+	unlk(Unlocks.Grass, 6)
 	unlk(Unlocks.Speed)
 	unlk(Unlocks.Hats)
 	unlk(Unlocks.Expand, 6)
@@ -48,16 +48,10 @@ while(True):
 	unlk(Unlocks.Dinosaurs)
 	unlk(Unlocks.Fertilizer)
 	unlk(Unlocks.Mazes)
-	unlk(Unlocks.Leaderboard)
  
- 
- 
-	# if num_unlocked(Unlocks.Sunflowers) > 0 and num_items(Items.Power) < 100 and num_items(Items.Carrot) == 500:
-	# 	sunflower_opt.power(200)
-
 	if num_items(Items.Hay) < 5000:
 		hay()
-	elif num_items(Items.Wood) < 50000:
+	elif num_items(Items.Wood) < 62500:
 		change_hat(Hats.Brown_Hat)
 		plth(Entities.Bush)
 		change_hat(Hats.Straw_Hat)
@@ -74,5 +68,5 @@ while(True):
 		maze_astar.run()
 	elif num_unlocked(Unlocks.Dinosaurs) > 0 and num_items(Items.Bone) < 2000000:
 		dino.circular_path()
-	
-	
+
+unlk(Unlocks.Leaderboard)

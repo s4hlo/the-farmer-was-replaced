@@ -10,8 +10,7 @@ def sort(dir, size, order, do_plant=False):
 	opps = u.opposite(dir)
 	for i in range(size):
 		if do_plant:
-			if get_ground_type() == Grounds.Grassland:
-				till()
+			till()
 			plant(Entities.Cactus)
 
 		j = i
@@ -47,11 +46,16 @@ clear()
 set_world_size(max_drones() - 1)
 size = get_world_size()
 
-while True:
+def plant_multi():
 	plant_cactus()
 	while num_drones() > 1:
 		pass
 	harvest()
  
+while num_items(Items.Cactus) < 33554432:
+	plant_multi()
+	clear()
+ 
 
 
+print("hello")

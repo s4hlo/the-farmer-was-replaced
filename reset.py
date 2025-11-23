@@ -15,7 +15,7 @@ sim_items = {
 			 }
 #um valor de semente negativo significa uma semente aleatória
 # seed = -1
-speedup = 10000000
+speedup = 100000000000
 # simulate("rscript", unlocks, items, globals, seed, speedup)
 
 leaderboard_run(Leaderboards.Fastest_Reset, "rscript", speedup)
